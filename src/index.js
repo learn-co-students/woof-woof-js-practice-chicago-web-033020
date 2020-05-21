@@ -34,28 +34,29 @@ function renderDoggos(doggos){
 }
 
 function renderDoggoInfo(event){
-  const dogClicked = parseInt(event.target.id)
-  fetchSingleDog(dogClicked)
+  if (event.target.tagName === "SPAN"){
+    const dogClicked = parseInt(event.target.id)
+    fetchSingleDog(dogClicked)
+  }
 }
 
 function toggleGoodness(event){
-  const dogClicked = parseInt(event.target.id)
-  const goodOrNot = event.target.innerHTML === "Good Dog!" ? true : false
+  if (event.target.tagName === "BUTTON"){
+    const dogClicked = parseInt(event.target.id)
+    const goodOrNot = event.target.innerHTML === "Good Dog!" ? true : false
 
-  const formData = {isGoodDog: !goodOrNot}
-
-  const reqObj = {
-    method: 'PATCH',
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(formData)
+    fetch(`http://localhost:3000/pups/${dogClicked}`, {
+      method: 'PATCH',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({isGoodDog: !goodOrNot})
+    })
+    .then(resp => resp.json())
+    .then(updatedDog => {
+      fetchSingleDog(updatedDog.id)
+    })
   }
-  fetch(`http://localhost:3000/pups/${dogClicked}`, reqObj)
-  .then(resp => resp.json())
-  .then(updatedDog => {
-    fetchSingleDog(updatedDog.id)
-  })
 }
 
 function dealWithFilter(event){

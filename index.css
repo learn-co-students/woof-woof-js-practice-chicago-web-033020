@@ -30,6 +30,8 @@
   align-items: center;
   border-radius: 2em;
   border: 1px solid blue;
+  text-align: center;
+  line-height: 80%;
 }
 
 #dog-summary-container {
@@ -43,9 +45,9 @@
   align-items: center;
 }
 
-#dog-info img {
-  max-width: 75vw;
-  max-height: 25vw;
+img {
+  max-width: 500px;
+  max-height: 500px;
 }
 
 body {
